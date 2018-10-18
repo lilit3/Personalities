@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}16Personalities{% endblock %}</title>
+        {% block stylesheets %}
+            <link rel="icon" type="image/png" href="https://storage.googleapis.com/neris/public/images/favicon.ico">
+            <link href="../css/local.css" rel="stylesheet">
+        {% endblock %}
+    </head>
+    <body>
+    <div class="conteiner">
+
+        <logo><div class="logo">
+                <a href="/"><img  src="../img/logo.svg"></a>
+            </div>
+        </logo>
+
+        <div class="menu">
+            <span class="pt20"><a  href = "https://www.16personalities.com/ru/test-lichnosti">Тест личности</a></span>
+            <span class="pt20"><a href = "/types">Типы личности</a></span>
+            <span class="pt20"><a href = "/contuct-us">Связаться</a></span>
+        </div>
+
+        {% block body %}{% endblock %}
+
+        <div class="footer">
+            ©2011-2018 NERIS Analytics Limited
+        </div>
+
+        <div class="alert alert-teal footer-translation-alert">
+            <strong>Disclaimer</strong>: All non-English versions of the website contain unofficial translations contributed by our users. They are not binding in any way, are not guaranteed to be accurate, and have no legal effect. The official text is the <a href="https://www.16personalities.com/">English version</a> of the website. Please consider reporting inaccuracies to <a href="mailto:support@16personalities.com">support@16personalities.com</a> or join our <a href="https://www.16personalities.com/translations">translation project</a>!
+        </div>
+
+    </div>
+
+
+
+        {% block javascripts %}{% endblock %}
+    </body>
+</html>

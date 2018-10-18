@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{% endblock %}
+
+{% block body %}
+    {#<div class="title-page title">#}
+        {#<h3>Типы личности</h3>#}
+    {#</div>#}
+
+    {% for  role in roles %}
+
+        <h2 class="title" style = "color: {{ role.color }}">{{ role.title }}</h2>
+
+        <div class="types-all">
+            {% for  personality in personalities if personality.role.id == role.id %}
+                <a href = "{{ path('personality_one', {'id': personality.id}) }}">
+                 <span>
+                     <h3>«{{ personality.title }}»</h3>
+                     <h4 style = "color: {{ role.color }}">{{ personality.code }}</h4>
+                     <p class="smalltxt">{{ personality.description }}</p>
+                 </span>
+                </a>
+            {% endfor %}
+        </div>
+        <div class="clear"></div>
+
+    {% endfor %}
+
+{% endblock %}

@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}16Personalities{% endblock %}
+
+{% block body %}
+
+    <div class="welcome-top">
+
+        <div class="slide image-wrapper">
+            <img  src="../img/home-16personalities.svg">
+        </div>
+
+        <div class="text-wrapper">
+            <h2 class="left">Наши читатели утверждают, что наш тест настолько точен, “что это немного жутковато”.</h2>
+            <p>Получите точное, подробное описание того, кем вы являетесь, и почему вы поступаете так, а не иначе.</p>
+            <p class="small">Бесплатно. Регистрация не требуется.</p>
+
+            <a target = "_blank" href="https://www.16personalities.com/ru/test-lichnosti">
+                <button class="btn btn-action btn-lg" type="button">
+                    <span>Пройдите тест&nbsp;</span>
+                    <span class="fa fa-caret-right"></span>
+                </button>
+            </a>
+
+        </div>
+        <div class="clear"></div>
+    </div>
+
+    <div class="content">
+        <span id="welcome-quote">Этот результат поставил все на место для меня! Меня удивила точностью результата... Теперь я не чувствую себя в одиночестве, поскольку знаю, что есть и другие, такие как я!</span>
+    </div>
+
+{% endblock %}
