@@ -24,7 +24,9 @@ class MainController extends AbstractController
     public function personality_types(RoleRepository $roleRepository, PersonalityRepository $personalityRepository)
     {
         $roles = $roleRepository->findAll();
-        $personalities = $personalityRepository->findAll();
+        //$personalities = $personalityRepository->findAll();
+        $personalities = $personalityRepository->findBy(['publish' => 1]);
+
 
         return $this->render('main/personality_types.html.twig', [
             'roles' => $roles,

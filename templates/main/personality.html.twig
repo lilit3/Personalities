@@ -1,13 +1,14 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}{% endblock %}
+{% block title %}Личность «{{ personality.title }}»{% endblock %}
 
 {% block body %}
 
-    <img src="../img/{{ personality.slidename|e }}">
+    <img src="../img/{{ personality.slidename|default('undefined')  }}">
+
 
         <h1 class="title">
-            ЛИЧНОСТЬ «{{ personality.title }}»
+            Личность «{{ personality.title }}»
         </h1>
 
         <h2 class="code">

@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Личность «{{ personality.title }}»{% endblock %}
+
+{% block body %}
+    <img src="../img/{{ personality.slidename|default('undefined')  }}">
+
+    <h1 class="title">
+        ЛИЧНОСТЬ «{{ personality.title }}»
+    </h1>
+
+    <h2 class="code">
+        {{ personality.code }}
+    </h2>
+
+    <div class="content">
+        {{ personality.content|raw }}
+    </div>
+
+    <div class="btns-footer">
+        <a href="{{ path('personality_index') }}" class="btn btn-action-2 left"><<< Вернуться к списку</a>
+
+        <a href="{{ path('personality_edit', {'id': personality.id}) }}" class="btn btn-action-2 left">Изменить</a>
+
+        {{ include('personality/_delete_form.html.twig') }}
+    </div>
+
+    <div class="clear"></div>
+
+{% endblock %}

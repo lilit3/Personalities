@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PersonalityRepository")
@@ -42,15 +43,15 @@ class Personality
     private $slidename;
 
     /**
-     * @ORM\Column(type="datetime")
-     */
-    private $createdAt;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="personalities")
      * @ORM\JoinColumn(nullable=false)
      */
     private $role;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $publish = 1;
 
     public function __construct()
     {
@@ -122,18 +123,6 @@ class Personality
         return $this;
     }
 
-    public function getCreatedAt(): ?\DateTimeInterface
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTimeInterface $createdAt): self
-    {
-        $this->createdAt = $createdAt;
-
-        return $this;
-    }
-
     public function getRole(): ?Role
     {
         return $this->role;
@@ -142,6 +131,18 @@ class Personality
     public function setRole(?Role $role): self
     {
         $this->role = $role;
+
+        return $this;
+    }
+
+    public function getPublish(): ?bool
+    {
+        return $this->publish;
+    }
+
+    public function setPublish(bool $publish): self
+    {
+        $this->publish = $publish;
 
         return $this;
     }

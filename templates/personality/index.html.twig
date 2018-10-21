@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Типы личности{% endblock %}
+
+{% block body %}
+    <h2 class="padt20">Типы личности</h2>
+
+    <table class="table-moder">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>Заголовок</th>
+                <th>Шифр</th>
+                <th>Описание</th>
+                <th></th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for personality in personalities %}
+            <tr {% if personality.publish is empty %}
+                    class="tr-color-gray"
+                {% else %}
+                    class="tr-color-white"
+
+        {% endif %}>
+                <td class="text-top center">{{ personality.id }}</td>
+                <td class="text-top">{{ personality.title }}</td>
+                <td class="text-top td-code">{{ personality.code }}</td>
+                <td class="td-width text-top">
+                        {{ personality.description|raw }}
+                            <div><a class="email-link" href="{{ path('personality_show', {'id': personality.id}) }}">Подробнее (show) >>></a>
+                            </div>
+                </td>
+                <td class="text-top">
+                    {% if personality.publish is empty %}
+                        <img  src="../img/icon-n.png">
+                        {% else %}
+                            <img  src="../img/icon-y.png">
+
+                    {% endif %}
+                </td>
+                <td class="text-top">
+                    <a href="{{ path('personality_edit', {'id': personality.id}) }}" class="email-link">Изменить</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="8">Не найдено</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="btns-footer"><a href="{{ path('personality_new') }}" class="btn btn-action-2 left">Cоздать новую</a></div>
+
+    <div class="clear"></div>
+{% endblock %}

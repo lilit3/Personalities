@@ -101,6 +101,11 @@ class Role
         return $this;
     }
 
+    public function __ToString()
+    {
+       return $this->title ? $this->title : 'New role';
+    }
+
     /**
      * @return Collection|Personality[]
      */
