@@ -118,6 +118,8 @@ div.content p {
 .menu {
 	width: 100%;
 	height: 35px;
+    position: relative;
+    z-index: 1;
 }
 
 .menu span {
@@ -361,4 +363,13 @@ input#personality_publish {
 .td-code {
     min-width: 130px;
     text-align: center;
+}
+
+.img-slide {
+    max-width: 999px!important;
+    vertical-align: top;
+    margin-top: -95px;
+    margin-bottom: -90px;
+    z-index: 2;
+
 }

@@ -40,7 +40,7 @@ class Personality
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private $slidename;
+    private $img_type;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="personalities")
@@ -53,10 +53,13 @@ class Personality
      */
     private $publish = 1;
 
-    public function __construct()
-    {
-        $this->createdAt = new \DateTime();
-    }
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     *
+     * @Assert\NotBlank(message="Please, upload the image.")
+     * @Assert\File(mimeTypes={  "image/svg+xml", "image/*" })
+     */
+    private $slide;
 
     public function getId(): ?int
     {
@@ -111,14 +114,14 @@ class Personality
         return $this;
     }
 
-    public function getSlidename(): ?string
+    public function getImgType(): ?string
     {
-        return $this->slidename;
+        return $this->img_type;
     }
 
-    public function setSlidename(?string $slidename): self
+    public function setImgType(?string $img_type): self
     {
-        $this->slidename = $slidename;
+        $this->img_type = $img_type;
 
         return $this;
     }
@@ -143,6 +146,18 @@ class Personality
     public function setPublish(bool $publish): self
     {
         $this->publish = $publish;
+
+        return $this;
+    }
+
+    public function getSlide()
+    {
+        return $this->slide;
+    }
+
+    public function setSlide($slide)
+    {
+        $this->slide = $slide;
 
         return $this;
     }

@@ -3,13 +3,13 @@
 {% block title %}Личность «{{ personality.title }}»{% endblock %}
 
 {% block body %}
-    <img src="../img/{{ personality.slidename|default('undefined')  }}">
+    <img class="img-slide" src="../img/types/{{ personality.slide|default('undefined')  }}">
 
     <h1 class="title">
         ЛИЧНОСТЬ «{{ personality.title }}»
     </h1>
 
-    <h2 class="code">
+    <h2 class="code" style = "color: {{ personality.role.color }}">
         {{ personality.code }}
     </h2>
 

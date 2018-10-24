@@ -19,24 +19,22 @@ class PersonalityType extends AbstractType
 //        'attr' => array('class' => 'inp-field'),
         $builder
             ->add('title',TextType::class,  array(
-                'label' => 'Заголовок',
+                'label' => 'Тип (личности)',
             ))
             ->add('code', TextType::class,  array(
                 'label' => 'Шифр',
             ))
             ->add('description', TextareaType::class,  array(
         'label' => 'Краткое описание',
-    ))
+            ))
             ->add('content', TextareaType::class,  array(
                 'label' => 'Контент')
             )
-            ->add('slidename', TextType::class,  array(
-                'label' => 'Слайд',
-            ))
             ->add('role')
             ->add('publish', CheckboxType::class,  array(
                 'label' => 'Опубликовано', 'required' => false
             ))
+            ->add('slide', FileType::class, array('label' => 'Слайд (.png, .jpg)', 'required' => false))
 
 //            ->add('slidename', FileType::class)
 //            ->add('genericFile', VichFileType::class, [

@@ -9,7 +9,7 @@
         <thead>
             <tr>
                 <th>№</th>
-                <th>Заголовок</th>
+                <th>Тип (личности)</th>
                 <th>Шифр</th>
                 <th>Описание</th>
                 <th></th>
@@ -25,8 +25,8 @@
 
         {% endif %}>
                 <td class="text-top center">{{ personality.id }}</td>
-                <td class="text-top">{{ personality.title }}</td>
-                <td class="text-top td-code">{{ personality.code }}</td>
+                <td class="text-top center">{{ personality.title }}</td>
+                <td class="text-top td-code"  style = "color: {{ personality.role.color }}"><b>{{ personality.code }}</b></td>
                 <td class="td-width text-top">
                         {{ personality.description|raw }}
                             <div><a class="email-link" href="{{ path('personality_show', {'id': personality.id}) }}">Подробнее (show) >>></a>
