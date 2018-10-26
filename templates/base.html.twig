@@ -5,21 +5,22 @@
         <title>{% block title %}16Personalities{% endblock %}</title>
         {% block stylesheets %}
             <link rel="icon" type="image/png" href="https://storage.googleapis.com/neris/public/images/favicon.ico">
-            <link href="../css/local.css" rel="stylesheet">
+            <link href="{{ asset('css/local.css') }}" rel="stylesheet">
         {% endblock %}
     </head>
     <body>
     <div class="container">
 
         <logo><div class="logo">
-                <a href="/"><img  src="../img/logo.svg"></a>
+                <a href="/"><img  src="{{ asset('img/logo.svg') }}"></a>
             </div>
         </logo>
 
         <div class="menu">
-            <span class="pt20"><a  href = "https://www.16personalities.com/ru/test-lichnosti">Тест личности</a></span>
+            {#<span class="pt20"><a  href = "https://www.16personalities.com/ru/test-lichnosti">Тест личности</a></span>#}
             <span class="pt20"><a href = "/types">Типы личности</a></span>
             <span class="pt20"><a href = "/contuct-us">Связаться</a></span>
+            <span class="pt20"><a href = "/moder">Модератору</a></span>
         </div>
 
         <div class="main">

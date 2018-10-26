@@ -17,21 +17,19 @@ use Symfony\Component\HttpFoundation\File\File;
 class PersonalityController extends AbstractController
 {
     /**
-     * @Route("/", name="personality_index", methods="GET")
+     * @Route("/", defaults={"id": false}, name="personality_index", methods="GET")
+     * @Route("/role/{id}", name="personality_index_role", methods="GET")
      */
-    public function index(PersonalityRepository $personalityRepository): Response
+    public function index(PersonalityRepository $personalityRepository, $id = false): Response
     {
-        return $this->render('personality/index.html.twig', ['personalities' => $personalityRepository->findAll()]);
-    }
+        if ($id != false) {
+            $personalities = $personalityRepository->findBy(['role' => $id]);
+        } else {
+            $personalities = $personalityRepository->findAll();
+        }
 
-//    /**
-//     * @Route("/role-{id}", name="personality_index", methods="GET")
-//     */
-//    public function typesOfRole($id, PersonalityRepository $personalityRepository): Response
-//    {
-//      //  $personalityRepository->findBy(['role_id' => $id]);
-//        return $this->render('personality/index.html.twig', ['personalities' => $personalityRepository->findBy(['role' => $id])]);
-//    }
+        return $this->render('personality/index.html.twig', compact('personalities'));
+    }
 
     /**
      * @Route("/new", name="personality_new", methods="GET|POST")

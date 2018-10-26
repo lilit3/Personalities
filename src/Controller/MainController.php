@@ -21,7 +21,7 @@ class MainController extends AbstractController
     /**
      * @Route("/types", name="personality_types")
      */
-    public function personality_types(RoleRepository $roleRepository, PersonalityRepository $personalityRepository)
+    public function personalityTypes(RoleRepository $roleRepository, PersonalityRepository $personalityRepository)
     {
         $roles = $roleRepository->findAll();
         //$personalities = $personalityRepository->findAll();
