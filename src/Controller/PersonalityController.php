@@ -41,7 +41,7 @@ class PersonalityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            #код повторяется в update
             $file = $personality->getSlide();
             $fileName = $this->moveFileOrException($file);
             $personality->setSlide($fileName);
@@ -79,7 +79,9 @@ class PersonalityController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            
+            #код повторяется в new
+            #нет проверки, а надо  ли нам обновлять файл или не  надо нам обновлять файл...
             $file = $personality->getSlide();
             $fileName = $this->moveFileOrException($file);
             $personality->setSlide($fileName);
@@ -120,7 +122,7 @@ class PersonalityController extends AbstractController
     private function moveFileOrException($file)
     {
         $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-        // Move the file to the directory where brochures are stored
+        
         try {
             $file->move(
                 $this->getParameter('slides_directory'),
