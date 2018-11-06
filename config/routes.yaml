@@ -1,0 +1,5 @@
+#index:
+#    path: /
+#    controller: App\Controller\DefaultController::index
+paladin.user:
+  resource: '@PaladinUserBundle/Resources/config/routing/routes.yaml'

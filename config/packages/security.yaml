@@ -1,0 +1,34 @@
+security:
+    encoders:
+        App\Entity\User:
+            algorithm: bcrypt
+            cost: 12
+
+    role_hierarchy:
+        ROLE_MODERATOR:   ROLE_USER
+        ROLE_ADMIN:       ROLE_MODERATOR
+        ROLE_SUPER_ADMIN: ROLE_ADMIN
+
+    providers:
+        user_db:
+            entity: { class: App\Entity\User, property: username }
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            pattern: ^/
+            form_login:
+                provider: user_db
+                login_path: /login
+                check_path: /login_check
+            logout:       true
+            anonymous:    true
+
+    access_control:
+    # - { path: ^/admin, roles: ROLE_ADMIN }
+    - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/registration, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
+    - { path: ^/moder&, roles: ROLE_MODERATOR }
+    - { path: ^/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
