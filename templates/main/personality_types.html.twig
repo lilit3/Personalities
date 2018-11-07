@@ -13,13 +13,24 @@
 
         <div class="types-all">
             {% for  personality in personalities if personality.role.id == role.id %}
-                <a href = "{{ path('personality_one', {'id': personality.id}) }}">
-                 <span>
+                 <a href = "{{ path('personality_one', {'id': personality.id}) }}">
+                 <span class="blok4">
+                     {% if personality.avatar|length > 0 %}
+                         <img class="img-avatar" src="../img/avatars/{{ personality.avatar }}">
+                     {% endif %}
+
                      <h3>«{{ personality.title }}»</h3>
                      <h4 style = "color: {{ role.color }}">{{ personality.code }}</h4>
-                     <p class="smalltxt">{{ personality.description }}</p>
+                     <p class="smalltxt description">{{ personality.description }}</p>
+                     {% if app.user %}
+                         {% if (is_granted('ROLE_MODERATOR') or personality.author.id == app.user.id)%}
+                             <a  class="email-link smalltxt" style="float:left; width:20px; margin:0 20px 0 -50px" href="{{ path('personality_edit', {'id': personality.id}) }}" >
+                                 ***
+                             </a>
+                         {% endif %}
+                     {% endif %}
                  </span>
-                </a>
+                 </a>
             {% endfor %}
         </div>
         <div class="clear"></div>

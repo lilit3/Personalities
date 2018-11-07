@@ -13,6 +13,16 @@
 
         <logo><div class="logo">
                 <a href="/"><img  src="{{ asset('img/logo.svg') }}"></a>
+                {% if is_granted('true') %}
+                    <div style="width: 250px; height: auto; float: right; ">
+                        <span class="right"><b>{{ app.user.username }}</b>
+                            {% if (is_granted('ROLE_MODERATOR')) %}
+                                 <br><a class="email-link" href = "/moder"><!--img class="tools" src="{{ asset('img/tools.png') }}"-->Вы - модератор</a>
+                                 <br>
+                            {% endif %}
+                        </span>
+                    </div>
+                {% endif %}
             </div>
         </logo>
 

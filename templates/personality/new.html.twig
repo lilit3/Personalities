@@ -3,6 +3,7 @@
 {% block title %}Создать Личность{% endblock %}
 
 {% block body %}
+<div class="welcome-top">
     <h2 class="padt20">Создать новую Личность</h2>
 
     {{ include('personality/_form.html.twig') }}
@@ -10,4 +11,5 @@
     <div class="btns-footer">
         <a href="{{ path('personality_index') }}" class="btn btn-action-2 left"><<< Вернуться к списку</a>
     </div>
+</div>
 {% endblock %}

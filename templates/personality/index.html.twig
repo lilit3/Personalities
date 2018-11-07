@@ -4,14 +4,13 @@
 
 {% block body %}
     <h2 class="padt20">Типы личности</h2>
-
     <table class="table-moder">
         <thead>
             <tr>
                 <th>№</th>
                 <th>Тип (личности)</th>
                 <th>Шифр</th>
-                <th>Описание</th>
+                <th></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -24,7 +23,11 @@
                     class="tr-color-white"
 
         {% endif %}>
-                <td class="text-top center">{{ personality.id }}</td>
+                <td class="text-top center">{{ personality.id }}
+                    {% if personality.author.id == app.user.id %}
+                    ***
+                    {% endif %}
+                </td>
                 <td class="text-top center">{{ personality.title }}</td>
                 <td class="text-top td-code"  style = "color: {{ personality.role.color }}"><b>{{ personality.code }}</b></td>
                 <td class="td-width text-top">
@@ -34,9 +37,9 @@
                 </td>
                 <td class="text-top">
                     {% if personality.publish is empty %}
-                        <img  src="../img/icon-n.png">
+                        <img  src="{{ asset('img/icon-n.png') }}">
                         {% else %}
-                            <img  src="../img/icon-y.png">
+                            <img  src="{{ asset('img/icon-y.png') }}">
 
                     {% endif %}
                 </td>

@@ -6,10 +6,16 @@
 
     <img class="img-slide" src="../img/types/{{ personality.slide|default('undefined')  }}">
 
+    {% for message in app.flashes ('add-comment-success') %}
+        <div class="flash-notice">
+           {{ message }}
+        </div>
+    {% endfor %}
 
         <h1 class="title">
             Личность «{{ personality.title }}»
         </h1>
+
 
         <h2 class="code" style = "color: {{ personality.role.color }}">
             {{ personality.code }}
@@ -18,5 +24,18 @@
         <div class="content">
             {{ personality.content|raw }}
         </div>
+
+        <div class="comments smalltxt footer">
+            {% for comment in personality.comments %}
+            <p>{{ comment.text }} - {{ comment.createdAt | date('Y-m-d H-i-s') }}</p>
+            {% endfor %}
+       </div>
+
+    <form action="{{ path('personality_create_comment', {'id': personality.id}) }}"  method = "post" >
+        <div><textarea name="text" ></textarea></div>
+        <input type="hidden" name="personalityId" value="{{ personality.id }}">
+        <button class="btn btn-action-2">Добавить комментарий</button>
+    </form>
+    <div class="clear"></div>
 
 {% endblock %}

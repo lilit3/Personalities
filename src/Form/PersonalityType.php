@@ -16,7 +16,6 @@ class PersonalityType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-//        'attr' => array('class' => 'inp-field'),
         $builder
             ->add('title',TextType::class,  array(
                 'label' => 'Тип (личности)',
@@ -25,27 +24,21 @@ class PersonalityType extends AbstractType
                 'label' => 'Шифр',
             ))
             ->add('description', TextareaType::class,  array(
-        'label' => 'Краткое описание',
+                'label' => 'Краткое описание',
             ))
             ->add('content', TextareaType::class,  array(
                 'label' => 'Контент')
             )
             ->add('role')
             ->add('publish', CheckboxType::class,  array(
-                'label' => 'Опубликовано', 'required' => false
-            ))
-            ->add('slide', FileType::class, array('label' => 'Слайд (.png, .jpg)', 'required' => false))
-
-//            ->add('slidename', FileType::class)
-//            ->add('genericFile', VichFileType::class, [
-//                'required' => false,
-//                'allow_delete' => true,
-//                'download_uri' => false,
-//                'download_label' => function (Personality $personality) {
-//                    return $personality->getTitle();
-//                },
-//            ])
-            ;
+                'label' => 'Опубликовано', 'required' => false)
+            )
+            ->add('slide', FileType::class, array(
+                 'label' => 'Слайд (.png, .jpg)', 'required' => false)
+            )
+            ->add('avatar', FileType::class, array(
+                'label' => 'Аватар (.png, .jpg)', 'required' => false)
+            );
     }
 
     public function configureOptions(OptionsResolver $resolver)

@@ -10,9 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 /**
  * @Route("/moder")
+ * @IsGranted("ROLE_MODERATOR")
  */
 class PersonalityController extends AbstractController
 {
@@ -37,14 +39,19 @@ class PersonalityController extends AbstractController
     public function new(Request $request): Response
     {
         $personality = new Personality();
+        $personality->setAuthor($this->getUser());
         $form = $this->createForm(PersonalityType::class, $personality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            #код повторяется в update
+
             $file = $personality->getSlide();
-            $fileName = $this->moveFileOrException($file);
-            $personality->setSlide($fileName);
+            $fileNameSlide = $this->moveFileOrException($file);
+            $personality->setSlide($fileNameSlide);
+
+          //  $fileAvatar = $personality->getAvatar();
+            $fileNameAvatar = $this->moveFileOrException($personality->getAvatar());
+            $personality->setAvatar($fileNameAvatar);
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($personality);
@@ -72,19 +79,25 @@ class PersonalityController extends AbstractController
      */
     public function edit(Request $request, Personality $personality): Response
     {
+        $personality->setAvatar(
+            new File($this->getParameter('avatars_directory').'/'.$personality->getAvatar())
+        );
+
         $personality->setSlide(
             new File($this->getParameter('slides_directory').'/'.$personality->getSlide())
         );
+
         $form = $this->createForm(PersonalityType::class, $personality);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            
-            #код повторяется в new
-            #нет проверки, а надо  ли нам обновлять файл или не  надо нам обновлять файл...
+
             $file = $personality->getSlide();
-            $fileName = $this->moveFileOrException($file);
+            $fileName = $this->moveFileOrException($file, 'slides_directory');
             $personality->setSlide($fileName);
+
+            $fileNameAvatar = $this->moveFileOrException($personality->getAvatar(), 'avatars_directory');
+            $personality->setAvatar($fileNameAvatar);
 
             $this->getDoctrine()->getManager()->flush();
 
@@ -111,21 +124,13 @@ class PersonalityController extends AbstractController
         return $this->redirectToRoute('personality_index');
     }
 
-    /**
-     * @return string
-     */
-    private function generateUniqueFileName()
+    private function moveFileOrException($file, $path)
     {
-        return md5(uniqid());
-    }
+        $fileName = uniqid().'.'.$file->guessExtension();
 
-    private function moveFileOrException($file)
-    {
-        $fileName = $this->generateUniqueFileName().'.'.$file->guessExtension();
-        
         try {
             $file->move(
-                $this->getParameter('slides_directory'),
+                $this->getParameter($path),
                 $fileName
             );
             return $fileName;
