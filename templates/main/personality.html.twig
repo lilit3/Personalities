@@ -25,15 +25,41 @@
             {{ personality.content|raw }}
         </div>
 
-        <div class="comments smalltxt footer">
-            {% for comment in personality.comments %}
-            <p>{{ comment.text }} - {{ comment.createdAt | date('Y-m-d H-i-s') }}</p>
-            {% endfor %}
-       </div>
+        <div class="comments smalltxt ">
+
+            <h2>Комментарии ({{ personality.comments|length }})</h2>
+
+            <div class="comments smalltxt">
+                {% macro list(items, parent) %}
+                    {% import _self as tree %}
+                    <ul class="list">
+                        {% for comment in items %}
+                            {% if comment.parent == parent %}
+                                <li>
+                                    {{ comment.text }}
+                                    {{ tree.list(items, comment.id) }}
+                                    <div><a href = "{{ path('personality_one', {'id': comment.personality.id, 'parent': comment.id}) }}">Ответить</a>
+                                         <span style="float: right">
+                                             {{ comment.createdAt | date('H:i:s d-m-Y') }}
+                                         </span>
+                                    </div>
+                                </li>
+                            {% endif %}
+                        {% endfor %}
+                    </ul>
+                {% endmacro %}
+
+                {% import _self as tree %}
+                {{ tree.list(personality.comments, 0) }}
+
+            </div>
+
+        </div>
 
     <form action="{{ path('personality_create_comment', {'id': personality.id}) }}"  method = "post" >
         <div><textarea name="text" ></textarea></div>
         <input type="hidden" name="personalityId" value="{{ personality.id }}">
+        <input type="hidden" name="parentComment" value="{{ app.request.query.all.parent|default(0) }}">
         <button class="btn btn-action-2">Добавить комментарий</button>
     </form>
     <div class="clear"></div>

@@ -38,6 +38,11 @@ class Comment
      */
     private $createdAt;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $parent;
+
     public function __construct()
     {
         $this->createdAt = new \DateTime();
@@ -95,4 +100,17 @@ class Comment
 
         return $this;
     }
+
+    public function getParent(): ?int
+    {
+        return $this->parent;
+    }
+
+    public function setParent(?int $parent): self
+    {
+        $this->parent = $parent;
+
+        return $this;
+    }
+
 }

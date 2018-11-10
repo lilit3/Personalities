@@ -6,14 +6,7 @@
 
     <div class="welcome-top">
 
-        {#{{ form_start(form) }}#}
-        {#{{ form_widget(form) }}#}
-
-        {#<button class="btn btn-action-2">{{ button_label|default('Save') }}</button>#}
-        {#<div class="clear"></div>#}
-        {#{{ form_end(form) }}#}
-
-        {{ form_row(form.comments) }}
+        {{ getTreeComments(personality.comments, 0) }}
 
      </div>
 

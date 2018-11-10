@@ -41,11 +41,6 @@ class Personality
     private $content;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $img_type;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Role", inversedBy="personalities")
      * @ORM\JoinColumn(nullable=false)
      */
@@ -136,18 +131,6 @@ class Personality
     public function setContent(?string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getImgType(): ?string
-    {
-        return $this->img_type;
-    }
-
-    public function setImgType(?string $img_type): self
-    {
-        $this->img_type = $img_type;
 
         return $this;
     }

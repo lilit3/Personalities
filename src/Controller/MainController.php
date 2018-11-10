@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Role;
 use App\Entity\Personality;
 use App\Form\AnswerType;
-use App\Form\TestType;
 use App\Entity\Comment;
 use App\Repository\PersonalityRepository;
 use App\Repository\RoleRepository;
@@ -66,7 +65,8 @@ class MainController extends AbstractController
         $comment = ( new Comment())
                  ->setPersonality($personality)
                  ->setAuthor($this->getUser())
-                 ->setText( $request->request->get('text'));
+                 ->setText($request->request->get('text'))
+                 ->setParent($request->request->get('parentComment'));
 
         $entityManager->persist($comment);
         $entityManager->flush();
@@ -74,22 +74,16 @@ class MainController extends AbstractController
        // $this->addFlash('add-comment-success', 'Your comment added success!');
 
         $id = $request->request->get('personalityId');
+
         return $this->redirectToRoute('personality_one', ['id' => $id]);
     }
 
-//    /**
-//     * @Route("/test", name="show_test")
-//     */
-//    public function showTest(Request $request): Response
-//    {
-//        //$personality = new Personality();
-//
-//        $form = $this->createForm(AnswerType::class, $personality);
-//
-//        $form->handleRequest($request);
-//        return $this->render('main/show_test.html.twig', [
-//            'personality' => $personality,
-//            'form' => $form->createView(),
-//        ]);
-//    }
+    /**
+     * @Route("/test/{id}", name="show_test", methods="GET")
+     */
+    public function showTest(Personality $personality)
+    {
+        $comments = $personality->getComments()->getValues();
+        return $this->render('main/show_test.html.twig',  compact('comments'));
+    }
 }
